@@ -1,0 +1,18 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Course";
+    ViewBag.Login = "true";
+    Layout = "_Layout";
+}
+<h1>Courses</h1>
+@foreach (var item in Model)
+{
+    <p>Key @Html.DisplayName(item.key.ToString())</p>
+    <p>Deck @Html.DisplayName(item.name)</p>
+    <p>Grade @Html.DisplayName(item.grade.ToString())</p>
+    
+<br>
+}
+
+

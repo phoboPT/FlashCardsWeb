@@ -1,0 +1,33 @@
+﻿@model System.Collections.Generic.List<WebApplication1.Models.Deck>
+
+@{
+    ViewBag.Title = "Deck";
+    Layout = "_Layout";
+}
+
+<h2>Deck</h2>
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+
+        <th scope="col">Key</th>
+        <th scope="col">Description</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Creator</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayName(item.key.ToString())</td>
+            <td> @Html.DisplayName(item.description)</td>
+            <td>@Html.DisplayName(item.name)</td>
+            <td>@Html.DisplayName(item.type.ToString())</td>
+            <td>@Html.DisplayName(item.userCreator.ToString())</td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+﻿@model System.Collections.Generic.List<WebApplication1.Models.Discipline>
+
+@{
+    ViewBag.Title = "Disiplines";
+    Layout = "_Layout";
+}
+
+<h2>Disciplines</h2>
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+
+        <th scope="col">Key</th>
+        <th scope="col">Name</th>
+        <th scope="col">Course</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayName(item.key.ToString())</td>
+            <td> @Html.DisplayName(item.name)</td>
+            <td>@Html.DisplayName(item.course.ToString())</td>
+            
+        </tr>
+    }
+    </tbody>
+</table>
