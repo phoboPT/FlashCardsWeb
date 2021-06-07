@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            
+            _context.UserDetails.Where(i => i.email == "1");
             return View(_context.CardDetails.ToList());
         }
     }

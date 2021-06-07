@@ -24,24 +24,28 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Discipline" asp-action="Index">Discipline</a>
                     </li>
-                    
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Index">Card</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Course</a>
                     </li>
-                 
+                   
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                    </li>
-                        
+                        <li class="nav-item pull-right">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                        </li>
                     }
-
-                    </ul>
+                    else
+                    {
+                        <li class="nav-item pull-right">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </nav>
@@ -58,7 +62,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2021 - FlashCards - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -49,18 +49,8 @@ namespace WebApplication1.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Validate(string username,string password,string returnUrl)
         {
-            var users = _context.UserDetails.ToList();
+            var user=_context.UserDetails.Where(i => i.email ==username&& i.password==password ).FirstOrDefault();
             ViewData["ReturnUrl"] = returnUrl;
-            var user=new User();
-            foreach (var u in users)
-            {
-                if (u.email != username || u.password != password) continue;
-                user = u;
-                break;
-            }
-
-            Console.WriteLine(user.email);
-            
             if (username == user.email && password ==user.password)
             {
                 var claims = new List<Claim>();
