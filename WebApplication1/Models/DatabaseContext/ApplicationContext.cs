@@ -17,7 +17,6 @@ namespace WebApplication1.Models.DatabaseContext
         public virtual DbSet<Degree> DegreeDetails { get; set; }
 
         public virtual DbSet<Deck> DeckDetails { get; set; }
-        public virtual DbSet<DeckDiscipline> DeckDisciplineDetails { get; set; }
         public virtual DbSet<Discipline> DisciplineDetails { get; set; }
 
         public virtual DbSet<DisciplineUser> DisciplineUserDetails { get; set; }
@@ -35,7 +34,6 @@ namespace WebApplication1.Models.DatabaseContext
             modelBuilder.Entity<Card>().ToTable("Card");
             modelBuilder.Entity<Degree>().ToTable("Degree");
             modelBuilder.Entity<Deck>().ToTable("Deck");
-            modelBuilder.Entity<DeckDiscipline>().ToTable("DeckDiscipline");
             modelBuilder.Entity<Discipline>().ToTable("Discipline");
             modelBuilder.Entity<DisciplineUser>().ToTable("DisciplineUser");
             modelBuilder.Entity<UserCardAnswer>().ToTable("UserCardAnswer");

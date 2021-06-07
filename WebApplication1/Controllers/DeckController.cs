@@ -22,8 +22,8 @@ namespace WebApplication1.Controllers
         {
             //TODO alterar id do user
             var id = 2;
-            var query = _context.DeckDetails.FromSqlRaw("SELECT de.* FROM \"Deck\" de, \"DeckDiscipline\" dc, \"DisciplineUser\" du "
-                + "WHERE de.key = dc.deck AND du.disciplineKey= dc.discipline AND du.userkey = " + id+ ";").ToList();
+            var query = _context.DeckDetails.FromSqlRaw("SELECT de.* FROM \"Deck\" de, \"DisciplineUser\" du "
+                + "WHERE  de.\"disciplineKey\"= du.disciplineKey AND du.userkey = " + id+ ";").ToList();
             
             return View(query);
         }

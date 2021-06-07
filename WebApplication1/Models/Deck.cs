@@ -12,5 +12,7 @@ namespace WebApplication1.Models
         public string name {get; set; }
         public int type { get; set; }
         public int userCreator { get; set; }
+        
+        public int disciplineKey { get; set; }
     }
 }

@@ -55,6 +55,7 @@ namespace WebApplication1.Controllers
             if (username == user.email && password ==user.password)
             {
                 var claims = new List<Claim>();
+                // claims.Add(new Claim(ClaimTypes.Sid, user.key.ToString()));
                 claims.Add(new Claim("username",user.email));
                 claims.Add(new Claim(ClaimTypes.Name,user.name));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier,user.name));
