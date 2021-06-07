@@ -31,4 +31,8 @@
       <Folder Include="Pages" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Models\DeckType.cs" />
+    </ItemGroup>
+
 </Project>

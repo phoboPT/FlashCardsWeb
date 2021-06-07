@@ -42,12 +42,8 @@ namespace WebApplication1.Controllers
         [HttpGet("login")]
         public IActionResult Login(string returnUrl)
         {
-            if (returnUrl== null)
-            {
-                ViewData["ReturnUrl"] = "Discipline";
-                return View();
-            }
-            ViewData["ReturnUrl"] = returnUrl;
+           
+            ViewData["ReturnUrl"] = returnUrl ?? "Home";
             
             return View();
         }
