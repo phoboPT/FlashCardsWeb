@@ -17,10 +17,16 @@ namespace WebApplication1.Controllers
         }
         // GET
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(int deck)
         {
-            _context.UserDetails.Where(i => i.email == "1");
-            return View(_context.CardDetails.ToList());
+            //TODO passar o deck desde o deckControler por parametros
+            
+            var query = _context.CardDetails.FromSqlRaw("SELECT * FROM \"Card\" " 
+                    + "WHERE  activated = 1 AND deck = " + deck+ ";").ToList();
+            
+            return View(query);
+            
         }
+        
     }
 }

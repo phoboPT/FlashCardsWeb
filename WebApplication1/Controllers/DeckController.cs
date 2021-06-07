@@ -18,12 +18,13 @@ namespace WebApplication1.Controllers
         }
         // GET
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(int key, int discipline)
         {
-            //TODO alterar id do user
-            var id = 2;
+            //TODO alterar id do user, disciplina tem de ser 0 por defeito ou alterar dinamicamente quando clicado na /Disciplina
+             key = 2;
             var query = _context.DeckDetails.FromSqlRaw("SELECT de.* FROM \"Deck\" de, \"DisciplineUser\" du "
-                + "WHERE  de.\"disciplineKey\"= du.disciplineKey AND du.userkey = " + id+ ";").ToList();
+                + "WHERE  de.\"disciplineKey\"= du.disciplineKey AND du.userkey = " + key 
+                + " AND (du.disciplineKey = " + discipline +" OR " + discipline + " = 0);").ToList();
             
             return View(query);
         }
