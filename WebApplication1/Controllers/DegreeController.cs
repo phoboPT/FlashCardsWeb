@@ -5,12 +5,12 @@ using WebApplication1.Models.DatabaseContext;
 
 namespace WebApplication1.Controllers
 {
-    public class CourseController : Controller
+    public class DegreeController : Controller
     { 
         
         private ApplicationContext _context;
 
-        public CourseController()
+        public DegreeController()
         {
             _context = new ApplicationContext();
         }
@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
         {
             
             
-            return View(_context.CourseDetails.ToList());
+            return View(_context.DegreeDetails.ToList());
         }
     }
 }

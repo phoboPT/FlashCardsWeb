@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models.DatabaseContext;
 
 namespace WebApplication1.Controllers
@@ -19,9 +20,12 @@ namespace WebApplication1.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            //TODO alterar id do user
+            var id = 2;
+            var query = _context.DeckDetails.FromSqlRaw("SELECT de.* FROM \"Deck\" de, \"DeckDiscipline\" dc, \"DisciplineUser\" du "
+                + "WHERE de.key = dc.deck AND du.disciplineKey= dc.discipline AND du.userkey = " + id+ ";").ToList();
             
-            
-            return View(_context.DeckDetails.ToList());
+            return View(query);
         }
     }
 }

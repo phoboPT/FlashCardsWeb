@@ -2,8 +2,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
-{[Table("Course",Schema = "public")]
-    public class Course
+{[Table("Degree",Schema = "public")]
+    public class Degree
     
     {
         [Key]
