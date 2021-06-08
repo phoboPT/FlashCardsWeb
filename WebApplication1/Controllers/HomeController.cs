@@ -50,14 +50,14 @@ namespace WebApplication1.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Validate(string username,string password,string returnUrl)
         {
-            var user=_context.UserDetails.Where(i => i.email ==username&& i.password==password ).FirstOrDefault();
+            var user=_context.UserDetails.Where(i => i.email ==username && i.password==password ).FirstOrDefault();
             ViewData["ReturnUrl"] = returnUrl;
             if (username == user.email && password ==user.password)
             {
                 var claims = new List<Claim>();
                 // claims.Add(new Claim(ClaimTypes.Sid, user.key.ToString()));
                 claims.Add(new Claim("username",user.email));
-                claims.Add(new Claim(ClaimTypes.Name,user.name));
+                claims.Add(new Claim(ClaimTypes.Name,user.email));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier,user.name));
                 claims.Add(new Claim(ClaimTypes.Role,user.type.ToString()));
                 var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);

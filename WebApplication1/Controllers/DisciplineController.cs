@@ -21,11 +21,11 @@ namespace WebApplication1.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            //TODO alterar o id
-            var id = 2;
+          
+            var user=_context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
             var valor = _context.DisciplineDetails
                 .FromSqlRaw("SELECT d.key, d.name, d.course FROM \"Discipline\" d, \"DisciplineUser\" du " 
-                            + "WHERE d.key = du.disciplineKey AND du.userkey =" + id + ";").ToList();
+                            + "WHERE d.key = du.\"disciplineKey\" AND du.userkey =" + user.key + ";").ToList();
             
             return View(valor);
         }

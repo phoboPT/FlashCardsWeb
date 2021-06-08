@@ -5,30 +5,31 @@
     Layout = "_Layout";
 }
 
-<h2>Cards</h2>
+<h2 xmlns="http://www.w3.org/1999/html">Cards</h2>
 
-<table class="table">
-    <thead class="thead-light">
-    <tr>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <br>
+            <img src="@Model[0].questionImage" width="400px">
+        </div>
+        <!-- /.col-sm-6 -->
+        <div class="col-sm-6">
+       
 
-        <th scope="col">Key</th>
-        <th scope="col">Deck</th>
-        <th scope="col">Question</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        // <td>@Html.DisplayName(item.Deck.ToString())</td>
-        <tr>
-            <td>@Html.DisplayName(item.key.ToString())</td>
-            <td> @Html.DisplayName(item.deck.ToString())</td>
-            <td>@Html.DisplayName(item.question)</td>
-        </tr>
-    }
-    </tbody>
-</table>
+            <div class="form-group">
+                <p>Question: @Html.DisplayName(Model[0].question)</p>
+                <p>Comentary: @Html.DisplayName(Model[0].commentary)</p>
+                Answer: <input class="form-control" aria-describedby="emailHelp" placeholder="Asnwer"/>
+                <br>
+                <button type="button" class="btn btn-primary">Easy</button>
+                <button type="button"class="btn btn-primary">Medium</button>
+                <button type="button"class="btn btn-primary">Hard</button>
+            </div>
 
-
-
-
+        </div>
+        <!-- /.col-sm-6 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
