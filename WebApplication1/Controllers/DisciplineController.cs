@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
           
             var user=_context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
             var valor = _context.DisciplineDetails
-                .FromSqlRaw("SELECT d.key, d.name, d.course FROM \"Discipline\" d, \"DisciplineUser\" du " 
+                .FromSqlRaw("SELECT d.key, d.name, d.degree FROM \"Discipline\" d, \"DisciplineUser\" du " 
                             + "WHERE d.key = du.\"disciplineKey\" AND du.userkey =" + user.key + ";").ToList();
             
             return View(valor);
