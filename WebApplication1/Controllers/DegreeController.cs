@@ -18,8 +18,6 @@ namespace WebApplication1.Controllers
         [Authorize(Roles="2")]
         public IActionResult Index()
         {
-            
-            
             return View(_context.DegreeDetails.ToList());
         }
     }

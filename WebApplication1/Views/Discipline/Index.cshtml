@@ -26,7 +26,7 @@
         // TODO enviar o valor por parametro para devolver os decks da disciplina em que o user esta
         }
             <td><a class="nav-link text-dark" asp-area="" asp-controller="Deck" asp-action="Index" asp-route-discipline=@item.key>@Html.DisplayName(item.name)</a></td>
-            <td>@Html.DisplayName(item.course.ToString())</td>
+            <td>@Html.DisplayName(item.degree.ToString())</td>
 
         </tr>
     }

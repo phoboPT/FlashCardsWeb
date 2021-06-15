@@ -9,6 +9,6 @@ namespace WebApplication1.Models
         [Key]
         public int key { get; set; }
         public string name {get; set; }
-        public int course { get; set; }
+        public int degree { get; set; }
     }
 }

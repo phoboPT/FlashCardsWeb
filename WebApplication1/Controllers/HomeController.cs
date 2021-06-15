@@ -18,6 +18,7 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationContext _context;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -33,55 +34,54 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        
+
         public IActionResult Help()
         {
             return View();
         }
-       
+
         [HttpGet("login")]
         public IActionResult Login(string returnUrl)
         {
-           
             ViewData["ReturnUrl"] = returnUrl ?? "Home";
-            
+
             return View();
         }
+
         [HttpPost("login")]
-        public async Task<IActionResult> Validate(string username,string password,string returnUrl)
+        public async Task<IActionResult> Validate(string username, string password, string returnUrl)
         {
-            var user=_context.UserDetails.Where(i => i.email ==username && i.password==password ).FirstOrDefault();
+            var user = _context.UserDetails.Where(i => i.email == username && i.password == password).FirstOrDefault();
             ViewData["ReturnUrl"] = returnUrl;
-            if (username == user.email && password ==user.password)
+            if (username == user.email && password == user.password)
             {
                 var claims = new List<Claim>();
                 // claims.Add(new Claim(ClaimTypes.Sid, user.key.ToString()));
-                claims.Add(new Claim("username",user.email));
-                claims.Add(new Claim(ClaimTypes.Name,user.email));
-                claims.Add(new Claim(ClaimTypes.NameIdentifier,user.name));
-                claims.Add(new Claim(ClaimTypes.Role,user.type.ToString()));
-                var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                claims.Add(new Claim("username", user.email));
+                claims.Add(new Claim(ClaimTypes.Name, user.email));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.name));
+                claims.Add(new Claim(ClaimTypes.Role, user.type.ToString()));
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect(returnUrl);
-
             }
 
             TempData["Error"] = "Error. Username or password is invalid.";
             return View("login");
         }
+
         [Authorize]
-        public async Task< IActionResult> Logout()
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            
+
             return View("index");
         }
+
         [HttpGet("denied")]
-        public  IActionResult Denied()
+        public IActionResult Denied()
         {
-           
-            
             return View();
         }
 
