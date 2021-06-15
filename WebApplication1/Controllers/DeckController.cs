@@ -22,13 +22,14 @@ namespace WebApplication1.Controllers
         public IActionResult Index( int discipline)
         {
             var user=_context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
-         
+
+            string sql = "SELECT de.* FROM \"Deck\" de, \"DisciplineUser\" du "
+                         + "WHERE  de.\"disciplineKey\"= du.\"disciplineKey\" AND du.userkey = " + user.key +
+                         "AND (type = 1 OR (de.type = 0 AND de.\"userCreator\" = " + user.key + "))" +
+                         " AND (de.\"disciplineKey\" = " + discipline + " OR " + discipline + " = 0);";
             
-            var query = _context.DeckDetails.FromSqlRaw("SELECT de.* FROM \"Deck\" de, \"DisciplineUser\" du "
-                + "WHERE  de.\"disciplineKey\"= du.\"disciplineKey\" AND du.userkey = " + user.key +
-                "AND (type = 1 OR (de.type = 0 AND de.\"userCreator\" = " + user.key + "))"+ ";").ToList();
+            var query = _context.DeckDetails.FromSqlRaw(sql).ToList();
             
-           
             return View(query);
         }
     }
