@@ -10,7 +10,7 @@
 }
 
 <h2 >Cards</h2>
-
+@index
 <div class="container">
     <div class="row">
         @if (Model.Count < 1)
@@ -36,7 +36,7 @@
                         <p>Comentary: @Html.DisplayName(Model[index].commentary)</p>
                         Answer: <input class="form-control" aria-describedby="emailHelp" placeholder="Asnwer"/>
                         <br>
-                        <button class="btn btn-primary" asp-area="" asp-controller="Card" asp-action="Easy" asp-route-deck=@Model[index].deck>Easy</button>
+                        <button class="btn btn-primary" asp-area="" asp-controller="Card" asp-action="Easy" asp-route-deck=@Model[index].deck asp-route-card=@Model[index].key>Easy</button>
                         <button class="btn btn-primary"> Medium</button>
                         <button class="btn btn-primary">Hard </button>
                     </div>

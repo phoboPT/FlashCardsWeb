@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace WebApplication1.Controllers
                 + "WHERE  de.\"disciplineKey\"= du.\"disciplineKey\" AND du.userkey = " + user.key +
                 "AND (type = 1 OR (de.type = 0 AND de.\"userCreator\" = " + user.key + "))"+ ";").ToList();
             
+           
             return View(query);
         }
     }

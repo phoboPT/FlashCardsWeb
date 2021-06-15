@@ -12,45 +12,68 @@ namespace WebApplication1.Controllers
     public class CardController : Controller
     {
         private ApplicationContext _context;
-        
+
         public CardController()
         {
             _context = new ApplicationContext();
-            
         }
 
         // GET
         [Authorize]
         public IActionResult Index(int deck)
-        {   
-            Console.WriteLine(deck);
+        {
+            var user = _context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
+            const string date = "2021-06-01";
+
             var teste = TempData["ID"];
             if (teste == null)
             {
                 TempData["ID"] = 0;
             }
-            var query = _context.CardDetails.FromSqlRaw("SELECT * FROM \"Card\" "
-                                                        + "WHERE  activated = 1 AND deck = " + deck + ";").ToList();
 
-            return View(query);
+            string sql = " SELECT c2.* FROM ( " +
+                         " SELECT c.key from \"Card\" c WHERE c.deck =" + deck + "EXCEPT " +
+                         " SELECT DISTINCT v.key FROM ( " +
+                         " SELECT cd.* FROM  \"Card\" cd, \"UserCardAnswer\" uc WHERE cd.key= uc.card " +
+                         " AND cd.activated = 1 AND cd.deck = " + deck + " AND uc.user= " + user.key +
+                         " AND uc.date >= '" + date + "'" +
+                         " ORDER BY date ASC, type DESC) v ) v2, \"Card\" c2 WHERE v2.key = c2.key;";
+
+            var query = _context.CardDetails.FromSqlRaw(sql).ToList();
+
+            if (query.Count > 0)
+            {
+                return View(query);
+            }
+
+            var sql2 = "SELECT DISTINCT v.card, c.* FROM ( " +
+                       " SELECT uc.* FROM  \"Card\" cd, \"UserCardAnswer\" uc WHERE cd.key= uc.card " +
+                       " AND cd.activated = 1 AND cd.deck = " + deck + " AND uc.user= " + user.key +
+                       " AND uc.date >= '" + date + "'" +
+                       " ORDER BY date ASC, type DESC) v, \"Card\" c WHERE c.key = v.card;";
+
+            var query2 = _context.CardDetails.FromSqlRaw(sql2).ToList();
+
+            return View(query2);
         }
 
         [Authorize]
         [HttpPost("Cards")]
-        public IActionResult Easy(int deck, int index)
+        public IActionResult Easy(int deck, int index,int card)
         {
-         TempData["ID"] = index+1;
-            Console.WriteLine("entrou" + index);
+            var user = _context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
+            TempData["ID"] = index + 1;
+
             _context.UserCardAnswerDetails.Add(new UserCardAnswer
             {
-                card = 1,
-                user = 1,
+                card =card,
+                user = user.key,
                 type = 1,
                 date = DateTime.Now
             });
             _context.SaveChanges();
-            Console.WriteLine("saiu");
-            return RedirectToAction("Index",new {deck});
+
+            return RedirectToAction("Index", new {deck});
         }
     }
 }
