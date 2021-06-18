@@ -1,0 +1,50 @@
+﻿@model Degree?
+@{
+    ViewBag.Title = "title";
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    var saved = TempData["Saved"] as string;
+    var title = TempData["Title"] as string;
+}
+@if (!string.IsNullOrEmpty((title)))
+{
+    <h2 >@title</h2>
+}
+<br/>
+
+@if (!string.IsNullOrEmpty((saved)))
+{
+    <h2 class="alert-success" style="padding: 20px;">@saved</h2>
+}
+
+@if (@Model != null)
+{
+    <form action="/UpdateDegree" method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Degree Name</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter degree name" name="name" value="@Model.name">
+            <small id="emailHelp" class="form-text text-muted">Name of the degree</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Grade</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter a grade" name="grade" value="@Model.grade">
+            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter a grade" name="grade" hidden value="@Model.key">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}
+else
+{
+    <form action="/AddDegree" method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Degree Name</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter degree name" name="name">
+            <small id="emailHelp" class="form-text text-muted">Name of the degree</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Grade</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter a grade" name="grade" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}

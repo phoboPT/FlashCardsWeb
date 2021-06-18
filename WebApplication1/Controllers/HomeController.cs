@@ -39,6 +39,13 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+       
+        public IActionResult Manage()
+        {
+          
+
+            return View();
+        }
 
         [HttpGet("login")]
         public IActionResult Login(string returnUrl)
@@ -90,5 +97,7 @@ namespace WebApplication1.Controllers
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
+        
+     
     }
 }

@@ -8,10 +8,10 @@
 }
 
 <h2>Login</h2>
-@if(!string.IsNullOrEmpty((error)))
-    {
-        <h2 class="alert-danger" style="padding: 20px;">@error</h2>
-    }
+@if (!string.IsNullOrEmpty((error)))
+{
+    <h2 class="alert-danger" style="padding: 20px;">@error</h2>
+}
 <form action="/login?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
     <input type="text" name="username" placeholder="Username"/>
     <input type="password" name="password" placeholder="Password"/>

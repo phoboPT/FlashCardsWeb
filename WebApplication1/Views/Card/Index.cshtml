@@ -5,27 +5,22 @@
     Layout = "_Layout";
 
     var index = Int32.Parse(TempData["ID"].ToString());
-
-    Console.WriteLine("indexNumber " + index);
 }
-
 <h2 >Cards</h2>
-@index
 <div class="container">
     <div class="row">
-        @if (Model.Count < 1)
+        @if (Model.Count < 1 || index >= Model.Count)
         {
-            <h1>No Cards</h1>
+            <h1>No Cards to show</h1>
         }
-        @if (index > Model.Count)
-        {
-            <h1>No more Cards</h1>
-        }
-        @if (Model.Count > 0)
+        @if (Model.Count > 0 && index < Model.Count)
         {
             <div class="col-sm-6">
                 <br>
-                <img src=@Model[index].questionImage width="400px">
+                @if (@Model[index].questionImage != null)
+                {
+                    <img src=@Model[index].questionImage width="400px">
+                }
             </div>
             <!-- /.col-sm-6 -->
             <div class="col-sm-6">
@@ -34,19 +29,35 @@
                     <div class="form-group">
                         <p>Question: @Html.DisplayName(Model[index].question)</p>
                         <p>Comentary: @Html.DisplayName(Model[index].commentary)</p>
-                        Answer: <input class="form-control" aria-describedby="emailHelp" placeholder="Asnwer"/>
+                        <p>
+                            Answer:
+                            <button id="teste1" type="button" class="btn btn-warning" onclick="show()">Show answer</button>
+                            <span id="teste" style="display: none">@Html.DisplayName(Model[index].answer)</span>
+                        </p>
                         <br>
-                        <button class="btn btn-primary" asp-area="" asp-controller="Card" asp-action="Easy" asp-route-deck=@Model[index].deck asp-route-card=@Model[index].key>Easy</button>
-                        <button class="btn btn-primary"> Medium</button>
-                        <button class="btn btn-primary">Hard </button>
+                        <button class="btn btn-primary" asp-area="" asp-controller="Card" asp-action="Easy" asp-route-deck=@Model[index].deck asp-route-card=@Model[index].key asp-route-response="easy" disabled>Easy</button>
+                        <button class="btn btn-primary" asp-area="" asp-controller="Card" asp-action="Easy" asp-route-deck=@Model[index].deck asp-route-card=@Model[index].key asp-route-response="medium" disabled> Medium</button>
+                        <button class="btn btn-primary" asp-area="" asp-controller="Card" asp-action="Easy" asp-route-deck=@Model[index].deck asp-route-card=@Model[index].key asp-route-response="hard" disabled>Hard </button>
                     </div>
                 </form>
             </div>
         }
         <!-- /.col-sm-6 -->
     </div>
-
-
     <!-- /.row -->
 </div>
 <!-- /.container -->
+<script type="text/javascript">
+    function show() {
+    const span= document.getElementById("teste");
+     const button= document.getElementById("teste1");
+     const buttons=document.getElementsByClassName("btn btn-primary")
+    span.style.display="inline"
+    button.style.display="none"   
+
+     buttons[0].removeAttribute("disabled")
+     buttons[1].removeAttribute("disabled")
+     buttons[2].removeAttribute("disabled")
+    
+    }
+ </script>

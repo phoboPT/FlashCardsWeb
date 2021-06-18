@@ -14,20 +14,29 @@
         <th scope="col">Key</th>
         <th scope="col">Degree</th>
         <th scope="col">Grade</th>
+           @if (User.IsInRole("2"))
+           {
+               <th scope="col">Edit</th>
+               <th scope="col">Delete</th>
+           }
     </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
     {
         <tr>
-        <td>@Html.DisplayName(item.key.ToString())</td>
-        <td>@Html.DisplayName(item.name)</td>
-        <td>Grade @Html.DisplayName(item.grade.ToString())</td>
-      </tr>  
+            <td>@Html.DisplayName(item.key.ToString())</td>
+            <td>@Html.DisplayName(item.name)</td>
+            <td>Grade @Html.DisplayName(item.grade.ToString())</td>
+            <td><a  asp-area="" asp-controller="Degree" asp-action="EditDegree" asp-route-key=@item.key>✏</a></td>
+            <td>❌</td>
+        </tr>  
     }
     </tbody>
+    
+    
 </table>
 
 
-
+ <a  class="btn btn-success"  asp-area="" asp-controller="Degree" asp-action="DegreePage" >Add new</a>
 
