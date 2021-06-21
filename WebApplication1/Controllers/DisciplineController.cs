@@ -27,5 +27,23 @@ namespace WebApplication1.Controllers
             
             return View(valor);
         }
+        [Authorize(Roles = "2")]
+        public IActionResult DisciplinePage()
+
+        {
+            TempData["Title"] = "New Degree";
+            return View();
+        }
+        
+        [Authorize(Roles = "2")]
+        public IActionResult EditDiscipline(int key)
+
+        {
+            var discipline = _context.DisciplineDetails.Where(i => i.key == key).FirstOrDefault();
+
+
+            TempData["Title"] = "Edit Degree, " + discipline.name;
+            return View("DisciplinePage", discipline);
+        }
     }
 }

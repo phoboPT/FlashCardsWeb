@@ -33,6 +33,7 @@
 
     <ItemGroup>
       <Compile Remove="Models\DeckType.cs" />
+      <Compile Remove="Customer.cs" />
     </ItemGroup>
 
 </Project>

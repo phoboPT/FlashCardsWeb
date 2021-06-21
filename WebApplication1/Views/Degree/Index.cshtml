@@ -4,9 +4,13 @@
     ViewBag.Title = "Degree";
     ViewBag.Login = "true";
     Layout = "_Layout";
+    var deleted = TempData["Deleted"] as string;
 }
 <h2>Degrees</h2>
-
+@if (!string.IsNullOrEmpty((deleted)))
+{
+    <h2 class="alert-success" style="padding: 20px;">@deleted</h2>
+}
 <table class="table">
     <thead class="thead-light">
     <tr>
@@ -14,11 +18,11 @@
         <th scope="col">Key</th>
         <th scope="col">Degree</th>
         <th scope="col">Grade</th>
-           @if (User.IsInRole("2"))
-           {
-               <th scope="col">Edit</th>
-               <th scope="col">Delete</th>
-           }
+        @if (User.IsInRole("2"))
+        {
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        }
     </tr>
     </thead>
     <tbody>
@@ -28,15 +32,18 @@
             <td>@Html.DisplayName(item.key.ToString())</td>
             <td>@Html.DisplayName(item.name)</td>
             <td>Grade @Html.DisplayName(item.grade.ToString())</td>
-            <td><a  asp-area="" asp-controller="Degree" asp-action="EditDegree" asp-route-key=@item.key>✏</a></td>
-            <td>❌</td>
-        </tr>  
+            <td>
+                <a asp-area="" asp-controller="Degree" asp-action="EditDegree" asp-route-key=@item.key>✏</a>
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Degree" asp-action="Delete" asp-route-key=@item.key>❌</a>
+            </td>
+        </tr>
     }
     </tbody>
-    
-    
+
+
 </table>
 
 
- <a  class="btn btn-success"  asp-area="" asp-controller="Degree" asp-action="DegreePage" >Add new</a>
-
+<a class="btn btn-success" asp-area="" asp-controller="Degree" asp-action="DegreePage">Add new</a>
