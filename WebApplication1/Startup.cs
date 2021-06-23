@@ -17,6 +17,7 @@ namespace WebApplication1
     public class Startup
     {
         private readonly IConfiguration _config;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,18 +38,9 @@ namespace WebApplication1
                 options.AccessDeniedPath = "/denied";
                 options.Events = new CookieAuthenticationEvents()
                 {
-                    OnSigningIn = async context =>
-                    {
-                        await Task.CompletedTask;
-                    },
-                    OnSignedIn = async context =>
-                    {
-                        await Task.CompletedTask;
-                    },
-                    OnValidatePrincipal = async context =>
-                    {
-                        await Task.CompletedTask;
-                    }
+                    OnSigningIn = async context => { await Task.CompletedTask; },
+                    OnSignedIn = async context => { await Task.CompletedTask; },
+                    OnValidatePrincipal = async context => { await Task.CompletedTask; }
                 };
             });
         }

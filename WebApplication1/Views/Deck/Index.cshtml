@@ -15,6 +15,7 @@
         <th scope="col">Name</th>
         <th scope="col">Description</th>
         <th scope="col">Type</th>
+        <th scope="col">Edit</th>
         @* <th scope="col">Creator</th> *@
     </tr>
     </thead>
@@ -23,10 +24,15 @@
     {
         <tr>
             @* <td>@Html.DisplayName(item.key.ToString())</td> *@
-            <td><a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Index" asp-route-deck=@item.key>@Html.DisplayName(item.name)</a></td>
+            <td>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Index" asp-route-deck=@item.key>@Html.DisplayName(item.name)</a>
+            </td>
             <td> @Html.DisplayName(item.description)</td>
             <td>@Html.DisplayName(item.type.ToString())</td>
-            @* <td>@Html.DisplayName(item.userCreator.ToString())</td> *@
+
+            <td>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Deck" asp-action="Edit" asp-route-deck=@item.key>✏</a>
+            </td>
         </tr>
     }
     </tbody>

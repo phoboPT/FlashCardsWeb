@@ -13,7 +13,7 @@
         <th scope="col">Key</th>
         <th scope="col">Name</th>
         <th scope="col">Degree</th>
-        @if (User.IsInRole("2"))
+        @if (User.IsInRole("3"))
         {
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -34,14 +34,19 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Deck" asp-action="Index" asp-route-discipline=@item.key>@Html.DisplayName(item.name)</a>
             </td>
             <td>@Html.DisplayName(item.degree.ToString())</td>
-            <td>
-                <a asp-area="" asp-controller="Discipline" asp-action="EditDiscipline" asp-route-key=@item.key>✏</a>
-            </td>
-            <td>❌</td>
+            @if (User.IsInRole("3"))
+            {
+                <td>
+                    <a asp-area="" asp-controller="Discipline" asp-action="EditDiscipline" asp-route-key=@item.key>✏</a>
+                </td>
+                <td>❌</td>
+            }
         </tr>
     }
     </tbody>
 </table>
 
-
-<a class="btn btn-success" asp-area="" asp-controller="Discipline" asp-action="DisciplinePage">Add new</a>
+@if (User.IsInRole("3"))
+{
+    <a class="btn btn-success" asp-area="" asp-controller="Discipline" asp-action="DisciplinePage">Add new</a>
+}

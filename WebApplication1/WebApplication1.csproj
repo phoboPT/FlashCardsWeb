@@ -28,12 +28,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages" />
+      <Compile Remove="Models\DeckType.cs" />
+      <Compile Remove="Customer.cs" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Models\DeckType.cs" />
-      <Compile Remove="Customer.cs" />
+      <Folder Include="Pages" />
     </ItemGroup>
 
 </Project>

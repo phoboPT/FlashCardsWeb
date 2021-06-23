@@ -7,10 +7,11 @@ namespace WebApplication1.Models.DatabaseContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql(
                 "User ID=postgres;Password=root;Host=localhost;Port=5432;Database=flash_cards;Pooling=true;");
-       
+
         public ApplicationContext()
         {
         }
+
         public virtual DbSet<AnswerType> AnswerTypeDetails { get; set; }
 
         public virtual DbSet<Card> CardDetails { get; set; }
@@ -23,13 +24,10 @@ namespace WebApplication1.Models.DatabaseContext
         public virtual DbSet<User> UserDetails { get; set; }
         public virtual DbSet<UserCardAnswer> UserCardAnswerDetails { get; set; }
         public virtual DbSet<UserType> UserTypeDetails { get; set; }
-      
-
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<AnswerType>().ToTable("AnswerType");
             modelBuilder.Entity<Card>().ToTable("Card");
             modelBuilder.Entity<Degree>().ToTable("Degree");
@@ -39,13 +37,6 @@ namespace WebApplication1.Models.DatabaseContext
             modelBuilder.Entity<UserCardAnswer>().ToTable("UserCardAnswer");
             modelBuilder.Entity<UserType>().ToTable("UserType");
             modelBuilder.Entity<User>().ToTable("User");
-          
-            
-            
         }
-
-
-
-
     }
 }

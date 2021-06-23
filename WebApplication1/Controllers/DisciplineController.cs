@@ -17,16 +17,20 @@ namespace WebApplication1.Controllers
         {
             _context = new ApplicationContext();
         }
+
         // GET
         [Authorize]
         public IActionResult Index()
         {
-            var user=_context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
+            var user = _context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
             var valor = _context.DisciplineDetails
-                .FromSqlRaw("SELECT d.key, d.name, d.degree FROM \"Discipline\" d, \"DisciplineUser\" du  WHERE d.key = du.\"disciplineKey\" AND du.userkey = " + user.key + ";").ToList();
-            
+                .FromSqlRaw(
+                    "SELECT d.key, d.name, d.degree FROM \"Discipline\" d, \"DisciplineUser\" du  WHERE d.key = du.\"disciplineKey\" AND du.userkey = " +
+                    user.key + ";").ToList();
+
             return View(valor);
         }
+
         [Authorize(Roles = "2")]
         public IActionResult DisciplinePage()
 
@@ -34,8 +38,8 @@ namespace WebApplication1.Controllers
             TempData["Title"] = "New Degree";
             return View();
         }
-        
-        [Authorize(Roles = "2")]
+
+        [Authorize(Roles = "3")]
         public IActionResult EditDiscipline(int key)
 
         {

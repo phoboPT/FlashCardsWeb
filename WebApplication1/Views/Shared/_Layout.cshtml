@@ -27,21 +27,20 @@
                     @* <li class="nav-item"> *@
                     @*     <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Index">Card</a> *@
                     @* </li> *@
-                    @if (User.IsInRole("2"))
+                    @if (User.IsInRole("2") || User.IsInRole("3"))
                     {
-
-
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Degree" asp-action="Index">Degree</a>
                         </li>
-                        
-                      
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Enrollement" asp-action="Index">Enrollement</a>
+                        </li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        
                         <li class="nav-item pull-right">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>
@@ -61,10 +60,13 @@
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
-    @if(!string.IsNullOrWhiteSpace(@ViewData["Summary"] as string)) {
-        <p><small>Summary: @ViewData["Summary"]</small></p>
+    @if (!string.IsNullOrWhiteSpace(@ViewData["Summary"] as string))
+    {
+        <p>
+            <small>Summary: @ViewData["Summary"]</small>
+        </p>
     }
-    
+
 </div>
 
 <footer class="border-top footer text-muted">

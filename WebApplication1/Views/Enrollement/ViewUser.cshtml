@@ -1,0 +1,55 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "View USer";
+    Layout = "_Layout";
+    var discipline = (List<Discipline>) ViewBag.Discipline;
+    var disciplineUser = (List<DisciplineUser>) ViewBag.DisciplineUser;
+    var message = TempData["Message"] as string;
+    var className = TempData["Class"] as string;
+    var userKey = TempData["userKey"] as string;
+
+}
+<h2>Disciplines enrolled</h2>
+@userKey
+@if (!string.IsNullOrEmpty((message)))
+{
+    <h2 class="@className" style="padding: 20px;">@message</h2>
+}
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Name</th>
+        @if (User.IsInRole("2"))
+        {
+            <th scope="col">Assigned</th>
+            <th scope="col">Remove</th>
+        }
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in discipline)
+    {
+        <tr>
+            <td>@Html.DisplayName(item.name)</td>
+            @if (User.IsInRole("2"))
+            {
+                @if (disciplineUser.Exists(i => i.disciplineKey == item.key))
+                {
+                    <td></td>
+                    <td>
+                        <a class="btn btn-secondary" asp-area="" asp-controller="Enrollement" asp-action="Delete" asp-route-key="@disciplineUser.Find(i => i.disciplineKey == item.key).key" asp-route-userKey="@userKey">❌ </a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a class="btn btn-secondary" asp-area="" asp-controller="Enrollement" asp-action="Add" asp-route-userKey="@userKey" asp-route-disciplineKey="@item.key">➕ </a>
+                    </td>
+                    <td></td>
+                }
+            }
+        </tr>
+    }
+    </tbody>
+</table>

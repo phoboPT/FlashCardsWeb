@@ -1,7 +1,7 @@
 ﻿@model Degree?
 @{
     ViewBag.Title = "title";
-  
+
     Layout = "_Layout";
     var saved = TempData["Saved"] as string;
     var title = TempData["Title"] as string;
@@ -43,7 +43,7 @@ else
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Grade</label>
-            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter a grade" name="grade" >
+            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter a grade" name="grade">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

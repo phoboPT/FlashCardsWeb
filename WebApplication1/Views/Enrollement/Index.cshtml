@@ -1,0 +1,38 @@
+﻿@model List<User>
+
+@{
+    ViewBag.Title = "Enrollement";
+    Layout = "_Layout";
+
+
+}
+
+<h2>All Students</h2>
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+
+        <th scope="col">Key</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Edit</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayName(item.key.ToString())</td>
+
+            <td>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Enrollement" asp-action="ViewUser" asp-route-user=@item.key>@Html.DisplayName(item.name)</a>
+            </td>
+            <td>@Html.DisplayName(item.email)</td>
+            <td>✏</td>
+
+        </tr>
+    }
+    </tbody>
+</table>

@@ -59,14 +59,14 @@ namespace WebApplication1.Controllers
 
         [Authorize]
         [HttpPost("Cards")]
-        public IActionResult Easy(int deck, int index,int card,string response)
+        public IActionResult Easy(int deck, int index, int card, string response)
         {
             var user = _context.UserDetails.Where(x => x.email == HttpContext.User.Identity.Name).FirstOrDefault();
             TempData["ID"] = index + 1;
 
             _context.UserCardAnswerDetails.Add(new UserCardAnswer
             {
-                card =card,
+                card = card,
                 user = user.key,
                 type = 1,
                 date = DateTime.Now

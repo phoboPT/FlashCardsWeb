@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "2,3")]
         public IActionResult Index()
         {
             return View(_context.DegreeDetails.ToList());
@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
 
         // GET
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "3")]
         public IActionResult DegreePage()
 
         {
@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "3")]
         [HttpPost("AddDegree")]
         public IActionResult AddDegree(string name, int grade)
 
@@ -46,15 +46,15 @@ namespace WebApplication1.Controllers
             });
             _context.SaveChanges();
 
-
+            TempData["Class"] = "alert-success";
             TempData["Saved"] = "Succesfully saved";
             TempData["Title"] = "New Degree";
             return View("DegreePage");
         }
-        
-        [Authorize(Roles = "2")]
+
+        [Authorize(Roles = "3")]
         [HttpPost("UpdateDegree")]
-        public IActionResult UpdateDegree(string name, int grade,int key)
+        public IActionResult UpdateDegree(string name, int grade, int key)
 
         {
             var degree = _context.DegreeDetails.Where(i => i.key == key).FirstOrDefault();
@@ -63,32 +63,35 @@ namespace WebApplication1.Controllers
                 degree.name = name;
             }
 
-            if (grade!=null)
+            if (grade != null)
             {
                 degree.grade = grade;
             }
 
             _context.Entry(degree).State = EntityState.Modified;
-          
+
             _context.SaveChanges();
 
+            TempData["Class"] = "alert-success";
 
-            TempData["Saved"] = "Succesfully updated";
+            TempData["Message"] = "Succesfully updated";
             TempData["Title"] = "Edit Degree, " + name;
             return View("DegreePage");
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "3")]
         public IActionResult EditDegree(int key)
 
         {
             var degree = _context.DegreeDetails.Where(i => i.key == key).FirstOrDefault();
 
+            TempData["Class"] = "alert-success";
 
             TempData["Title"] = "Edit Degree, " + degree.name;
             return View("DegreePage", degree);
         }
-        [Authorize(Roles = "2")]
+
+        [Authorize(Roles = "3")]
         public ActionResult Delete(int key)
         {
             if (key > 0)
@@ -100,11 +103,11 @@ namespace WebApplication1.Controllers
                     _context.SaveChanges();
                 }
             }
-            TempData["Deleted"] = "Succesfully deleted";
-           
-            return View("Index",_context.DegreeDetails.ToList());
+
+            TempData["Message"] = "Succesfully deleted";
+            TempData["Class"] = "alert-primary";
+
+            return View("Index", _context.DegreeDetails.ToList());
         }
-        
-        
     }
 }

@@ -16,12 +16,10 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private ApplicationContext _context;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
             _context = new ApplicationContext();
         }
 
@@ -39,11 +37,9 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-       
+
         public IActionResult Manage()
         {
-          
-
             return View();
         }
 
@@ -63,7 +59,6 @@ namespace WebApplication1.Controllers
             if (username == user.email && password == user.password)
             {
                 var claims = new List<Claim>();
-                // claims.Add(new Claim(ClaimTypes.Sid, user.key.ToString()));
                 claims.Add(new Claim("username", user.email));
                 claims.Add(new Claim(ClaimTypes.Name, user.email));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, user.name));
@@ -97,7 +92,5 @@ namespace WebApplication1.Controllers
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
-        
-     
     }
 }
